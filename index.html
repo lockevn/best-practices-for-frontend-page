@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta name="theme-color" content="#ffc02e" />
+
+    <title>Niteco - Boosting Your Performance v20200602</title>
+
+    <!-- NITECO NOTE: 
+        Maximum is 8 items only.
+        You don't need to dns-prefetch your own domain -->
+    <!-- https://web.dev/preconnect-and-dns-prefetch/  DON'T merge into one tag like this <link rel="preconnect dns-prefetch" />, cause problem in Safari 
+    preconnect with crossorigin is for CORS, it is different with normal link (like link style, script, ...)
+    We need to have both, if we take resources from that domain, both normally in HTML and in AJAX request
+    -->
+    <link rel="dns-prefetch" href="//niteco.com" crossorigin />
+    <link rel="preconnect" href="//niteco.com" />
+    <link rel="preconnect" href="//niteco.com" crossorigin />
+
+    <link rel="dns-prefetch" href="//loremflickr.com" crossorigin />
+    <link rel="preconnect" href="//loremflickr.com" />
+
+    <link rel="dns-prefetch" href="//www.google-analytics.com" crossorigin />
+    <link rel="preconnect" href="//www.google-analytics.com" />
+    <link rel="preconnect" href="//www.google-analytics.com" crossorigin />
+
+    <!-- Preload fonts should be here, before ABOVE-THE-FOLD style rules  -->
+    <link rel="preload" as="font" crossorigin type="font/woff2" href="Static/v1.1/fonts/fontawesome-webfont.woff2" />
+
+    <!-- NITECO IMPORTANT ============ ABOVE-THE-FOLD style rules must be inline (minified) here -->
+    <style>
+      @font-face {
+        font-family: "fontawesome";
+        font-display: fallback;
+        src: url("Static/v1.1/fonts/fontawesome-webfont.woff2") format("woff2");
+      }
+
+      html,
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        font-size: 1rem;
+      }
+
+      header {
+        color: yellowgreen;
+        background-color: black;
+      }
+
+      nav {
+        /* background-color: black; */
+        color: yellowgreen;
+        min-height: 2rem;
+      }
+
+      nav li {
+        display: inline-block;
+        margin: 2rem 1rem;
+        font-size: 1.5rem;
+      }
+
+      .mainhero {
+        text-align: center;
+        color: greenyellow;
+        height: 70vh;
+      }
+
+      .cta-button {
+        width: 15rem;
+        height: 10rem;
+        border-radius: 1rem;
+
+        -webkit-box-shadow: 4px 10px 30px 0px rgba(209, 117, 209, 1);
+        -moz-box-shadow: 4px 10px 30px 0px rgba(209, 117, 209, 1);
+        box-shadow: 4px 10px 30px 0px rgba(209, 117, 209, 1);
+
+        border: 2px solid red;
+        background-color: red;
+        color: yellowgreen;
+
+        padding: 0.51rem 2rem;
+      }
+
+      .mainhero h1 {
+        font-family: "fontawesome", Arial, sans-serif;
+        font-size: 5rem;
+      }
+
+      .mainhero.is-info {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://loremflickr.com/1280/960/tennis") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+
+      .mainhero .subtitle {
+        padding: 3rem 0;
+        line-height: 1.5;
+        font-size: 3rem;
+      }
+    </style>
+
+    <!-- NITECO IMPORTANT ============
+        Use loadCSS technique https://github.com/filamentgroup/loadCSS to defer-load CSS files that are NOT CRITICAL to the initial rendering of the page         -->
+    <link rel="preload" as="style" href="Static/v1.1/css/slow-and-non-critical.css" media="screen" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link rel="stylesheet" href="Static/v1.1/css/slow-and-non-critical.css" media="screen" />
+    </noscript>
+
+    <link rel="preload" as="style" href="Static/v1.1/css/main.css" media="screen" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link rel="stylesheet" href="Static/v1.1/css/main.css" media="screen" />
+    </noscript>
+
+    <!-- NITECO IMPORTANT: TRY YOUR BEST TO NOT HAVE SCRIPTS  HERE IN HEAD.
+        In best case, all scripts should be put at end of page.
+
+        If you do have a reason, really need script run at header, consider one of these techniques, try to use defer first, if possible -->
+
+    <!-- IMPORTANT: Defer is much more better.
+        If your second script depends upon the first script, you can't make them async without additional code to control execution order.
+        But you can make them defer because defer scripts will still be executed in order.
+
+        See this amazing post http://www.growingwiththeweb.com/2014/02/async-vs-defer-attributes.html
+        -->
+    <script async src="Static/v1.1/scripts/execute-after-downloading.js"></script>
+    <script defer src="Static/v1.1/scripts/loading-css-async-v0.1.js"></script>
+    <script defer src="Static/v1.1/scripts/execute-after-html-parsing.js"></script>
+
+    <!-- What about Google Analytics? 
+        The most often cited example for using async is an analytics script
+        that you don't want anything to wait for and it's not urgent to run soon and it stands alone so nothing else depends upon it. -->
+
+    <!-- What about jQuery?
+        Usually jQuery is not a good candidate for async because other scripts depend upon it
+        It can be used async, but other scripts will have to be coded to not execute until jQuery is loaded. -->
+
+    <!-- NITECO IMPORTANT ============ SEO -->
+    <link rel="canonical" href="//niteco-bestpractice.netlify.app/" />
+    <meta name="description" content="Niteco builds and delivers CMS and Commerce as well as Digital Marketing projects that serve business needs." />
+    <meta
+      name="keywords"
+      content="microsoft Asia partner,episerver outsourcing Asia,episerver solution partner,azure solutions,outsourcing software,offshore partner,Episerver premium partner,Episerver provider,Episerver partner,world's largest Episerver partner,Number one Episerver partner"
+    />
+
+    <!-- NITECO: Meta data for displaying visual-elements on Windows Android iOS -->
+    <link rel="image_src" href="/PWA/icons/icon-180x180.png" />
+    <link rel="apple-touch-icon" href="/PWA/icons/icon-180x180.png" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <!-- One image is enough https://webhint.io/docs/user-guide/hints/hint-apple-touch-icons/ -->
+
+    <meta name="msapplication-TileColor" content="#ffc02e" />
+    <meta name="msapplication-TileImage" content="/PWA/icons/icon-180x180.png" />
+
+    <!-- NITECO: Meta data for visual-elements in social platform Facebook, Twitter -->
+    <meta property="og:title" content="Niteco - Sample best practice header" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Niteco website" />
+    <meta property="og:url" content="https://fiction-niteco.com" />
+    <meta property="og:description" content="Niteco builds and delivers CMS and Commerce as well as Digital Marketing projects that serve business needs." />
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="https://fiction-niteco.com/img/sharing-horizontal.jpg" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:domain" content="fiction-niteco.com" />
+    <meta name="twitter:title" property="og:title" itemprop="name" content="Niteco - Sample best practice header" />
+    <meta name="twitter:description" property="og:description" itemprop="description" content="Niteco builds and delivers CMS and Commerce as well as Digital Marketing projects that serve business needs." />
+    <meta name="twitter:site" content="Niteco" />
+    <meta name="twitter:image:src" content="https://fiction-niteco.com/img/sharing-horizontal.jpg" />
+
+    <link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
+    <link rel="search" type="application/opensearchdescription+xml" title="Niteco Best practice" href="/opensearch.xml" />
+  </head>
+
+  <body>
+    <header>
+      <div>
+        ABF: force this header to have black background
+      </div>
+      <nav class="">
+        <ul>
+          <li>
+            <img src="Static/v1.1/img/logo.png" alt="Niteco logo" title="logo" />
+          </li>
+          <li>
+            Home
+          </li>
+          <li>
+            About us
+          </li>
+          <li>
+            Product
+          </li>
+          <li>
+            Contact us
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="body">
+      <div class="container is-fluid">
+        <div class="mainhero is-info">
+          <h1>
+            Guide for best practice html headers v.1.1.0 (July 2020)
+          </h1>
+          <p class="has-background-dark has-text-white">
+            Here are our super heroes: Odin, Thor, Tyr, Baldur, Frey, R&D...
+          </p>
+          <a class="button is-rounded cta-button is-large" href="//niteco.com" title="Go to father page">United!</a>
+        </div>
+      </div>
+
+      <section class="hero is-medium is-dark is-bold">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+              Niteco 2.0
+            </h1>
+            <h2 class="subtitle">
+              Celebrate 9 years with new momentum
+            </h2>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container is-fluid">
+          <div class="tile is-ancestor">
+            <div class="tile is-vertical is-9">
+              <div class="tile">
+                <div class="tile is-parent">
+                  <article class="tile is-child box">
+                    <p class="title">Stockholm</p>
+                    <p class="subtitle">
+                      Norrtullsgatan 6, 5tr, SE-113 29 Stockholm, Sweden
+                    </p>
+                    <div class="content">
+                      <p>Email Us +46 (0)700 35 58 30</p>
+                    </div>
+                  </article>
+                </div>
+                <div class="tile is-8 is-vertical">
+                  <div class="tile">
+                    <div class="tile is-parent">
+                      <article class="tile is-child box">
+                        <p class="title">Odin</p>
+                        <p class="subtitle">Use Bulma as CSS framework, async preload with loadCSS()</p>
+                      </article>
+                    </div>
+                    <div class="tile is-parent">
+                      <article class="tile is-child box">
+                        <p class="title">Thor</p>
+                        <p class="subtitle">Using Above the fold technique to boost loading and rendering phase</p>
+                      </article>
+                    </div>
+                  </div>
+                  <div class="tile is-parent">
+                    <article class="tile is-child box">
+                      <p class="title">Hanoi</p>
+                      <p class="subtitle">Load JS (Vue, LoDash) in head tag with async and defer</p>
+                      <figure class="image is-square">
+                        <img alt="Hanoi office location" src="https://niteco.com/globalassets/7.-contact-us/7.1-contact-us/desktop/contactus-hanoi-desktop.jpg?preset=640" />
+                      </figure>
+                    </article>
+                  </div>
+                </div>
+              </div>
+              <div class="tile">
+                <div class="tile is-8 is-parent">
+                  <article class="tile is-child box">
+                    <p class="title">Sydney</p>
+                    <p class="subtitle">
+                      Suite 202, 56 Bowman Street, Pyrmont, NSW 2009
+                    </p>
+                    <div class="content">
+                      <p>Email Us +61 405 208 629</p>
+                    </div>
+
+                    <figure class="image is-square">
+                      <img alt="Sydney office location" src="https://niteco.com/globalassets/7.-contact-us/7.1-contact-us/desktop/contactus-sydney-desktop.jpg?preset=640" />
+                    </figure>
+                  </article>
+                </div>
+                <div class="tile is-parent">
+                  <article class="tile is-child box">
+                    <p class="title">HCM</p>
+                    <p class="subtitle">
+                      E.Town Building 1, 2nd Floor, 364 Cong Hoa Street, Ward 13, Tan Binh District, Ho Chi Minh City, Vietnam
+                    </p>
+                    <div class="content">
+                      <p>+84 (0)28 6297 1215</p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child box">
+                <div class="content">
+                  <p class="title">Frey</p>
+                  <p class="subtitle">
+                    How can digital solutions help you run your business better?
+                  </p>
+
+                  <p class="title">Baldur</p>
+                  <p class="subtitle">Exceed your customers' expectations?</p>
+
+                  <p class="title">Tyr</p>
+                  <p class="subtitle">
+                    Here are some projects we're pretty proud of - and our clients are, too.
+                  </p>
+                  <div class="content">
+                    <p>
+                      On-shore center to work closely with the client to collect requirements, complete business analysis and to suggest changes to the off-shore center Off-shore center to receive and proceed requests from on-shore center on a daily
+                      basis Fast implementation of features, updates, and technologies Improved Communication between client and production team
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="tile is-ancestor">
+            <div class="tile is-parent">
+              <article class="tile is-child box">
+                <p class="title">Project Based Model</p>
+                <p class="subtitle">Subtitle</p>
+                <div class="content">
+                  <p>
+                    Do you have a one-off specific need that has a fixed time frame, with team work based on Time & Material? Our popular project based model could work for you.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="tile is-parent is-6">
+              <article class="tile is-child box">
+                <p class="title">Dual Shore Model</p>
+                <p class="subtitle">Subtitle</p>
+                <div class="content">
+                  <p>
+                    Two-way, effective communication is key to the success of any scalable project. That is why we have created the dual-shore model, to give you the best of both worlds.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child box">
+                <p class="title">Dedicated Team Model</p>
+                <p class="subtitle">Subtitle</p>
+                <div class="content">
+                  <p>
+                    Do you wish to execute a complex project that could take at least three months to accomplish? If yes, the Dedicated Team Model is for you
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <p>
+            Niteco has relaunched its round-the-clock management service today as the company sees a spike in the take up of its unique offering. Now known as 24/7 Proactive Response, the rebrand better reflects the active management team customers
+            can have at their disposal in order to ensure their site is never down. Explaining the name change, Lotta Widorson Lassfolk said, “More than two years ago, Niteco introduced a comprehensive service that would cater to the needs of global
+            customers. We called it Application Management Service (AMS) at the time, but as we developed the unit more, we realized the name didn’t mirror what we now had on offer, which is a dedicated team of specialists that are active in their
+            management of our customers’ applications.” The 24/7 Proactive Response team manages a customer’s application and integrations round the clock. This service results in dramatically reduced wait times for service requests and a much more
+            responsive support team, which in turn produces vastly improved stability and availability for a customer’s application. The service also includes advanced application monitoring and integration monitoring tailored for e-commerce and
+            online transactions. Additionally, there is performance and security monitoring and measures to prevent downtime or breaches. 24/7 Proactive Response is tailored to support both on-premise or cloud solutions such as: Episerver DXC cloud
+            Sitecore Experience cloud Amazon AWS cloud Microsoft Azure cloud Rackspace Managed cloud
+          </p>
+        </div>
+      </section>
+    </section>
+    <footer class="footer has-background-dark has-text-white">
+      <hr />
+      <div class="content has-text-centered">
+        <p>
+          <a class="button is-dark is-medium" href="https://jgthms.com" title="CSS framework behind the scene">Bulma act as slow-and-non-critical.css</a>
+
+          <a class="button is-dark is-medium" href="https://app.netlify.com/sites/niteco-bestpractice/overview" title="Hosting site">Go to Netlify hosting</a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- NITECO: Your HTML will display quicker in older browsers if you keep the scripts at the end of the body right before </body>.
+    So, to preserve the load speed in older browsers, YOU SHOULD PUT YOUR SCRIPTS HERE -->
+
+    <script async>
+      // Check that service workers are registered
+      if ("serviceWorker" in navigator) {
+        // Use the window load event to keep the page load performant (no? I don't see differrent)
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js", {
+            scope: "/",
+          });
+        });
+      } else {
+        console.log("No need to register a new service worker!");
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org/",
+        "@graph": [
+          {
+            "@type": "Corporation",
+            "@id": "https://niteco.com",
+            "name": "Thunder",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://niteco.com/img/logo.png"
+            },
+            "url": "https://niteco.com",
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "contactType": "customer service",
+                "email": "info@niteco.com",
+                "areaServed": "VN",
+                "availableLanguage": ["English", "Vietnamese"],
+                "telephone": "+84 (0)24 3573 9623"
+              },
+              {
+                "@type": "ContactPoint",
+                "contactType": "customer service",
+                "email": "sweden.info@niteco.se",
+                "areaServed": "SE",
+                "availableLanguage": ["English"],
+                "telephone": "+46 (0)700 35 58 30"
+              },
+              {
+                "@type": "ContactPoint",
+                "contactType": "customer service",
+                "email": "usa.info@niteco.com",
+                "areaServed": "US",
+                "availableLanguage": ["English"],
+                "telephone": "+1 415 849 6020"
+              },
+              {
+                "@type": "ContactPoint",
+                "contactType": "customer service",
+                "email": "australia.info@niteco.com",
+                "areaServed": "AU",
+                "availableLanguage": ["English"],
+                "telephone": "+61 405 208 629"
+              },
+              {
+                "@type": "ContactPoint",
+                "contactType": "customer service",
+                "email": "uk.info@niteco.co.uk",
+                "areaServed": "GB",
+                "availableLanguage": ["English"],
+                "telephone": "+44 7460 122 355"
+              },
+              {
+                "@type": "ContactPoint",
+                "contactType": "customer service",
+                "email": "hk.info@niteco.com",
+                "areaServed": "HK",
+                "availableLanguage": ["English"],
+                "telephone": "+852 5808 0458"
+              }
+            ],
+            "sameAs": ["https://www.facebook.com/Niteco/", "https://www.youtube.com/channel/UCmPjxX2o8Fw36IvswJ8h7sg"]
+          },
+          {
+            "@type": "ProfessionalService",
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "21.0140421",
+              "longitude": "105.8311533",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Unspecified"
+              }
+            },
+            "url": "https://niteco.com",
+            "image": "https://niteco.com/img/logo.png",
+            "@context": "https://schema.org",
+            "@id": "niteco.com",
+            "name": "Niteco Vietnam Ltd.",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "C'Land Tower, 14th Floor, 156 Xa Dan II Street, Dong Da District",
+              "addressCountry": "VN",
+              "addressLocality": "Hanoi",
+              "addressRegion": "HN",
+              "postalCode": "100000"
+            },
+            "openingHours": ["Mo-Sa 9:00-18:00"],
+            "priceRange": "$$",
+            "hasmap": "https://goo.gl/maps/kNJ5csP9eUhpfr8D7",
+            "sameAs": ["https://www.facebook.com/Niteco/", "https://www.youtube.com/channel/UCmPjxX2o8Fw36IvswJ8h7sg"],
+            "brand": {
+              "@type": "Brand",
+              "name": "Niteco"
+            },
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "contactType": "customer service",
+                "email": "info@niteco.com",
+                "areaServed": "VN",
+                "availableLanguage": ["English", "Vietnamese"],
+                "telephone": "+84 (0)24 3573 9623"
+              },
+              {
+                "@type": "ContactPoint",
+                "contactType": "customer service",
+                "email": "info@niteco.com",
+                "areaServed": "VN",
+                "availableLanguage": ["English", "Vietnamese"],
+                "telephone": "+84 (0)28 6297 1215"
+              }
+            ],
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://niteco.com/img/logo.png"
+            },
+            "telephone": "+84 24 3573 9623"
+          }
+        ]
+      }
+    </script>
+  </body>
+</html>

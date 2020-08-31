@@ -1,0 +1,3 @@
+﻿Sitemap: https://niteco.com/sitemap.xml
+User-agent: *
+Disallow:
