@@ -7,6 +7,4 @@ Live site is at https://niteco-bestpractice.netlify.app/
 
 # deploy
 
-Clone the src folder into new folder, remove .git
-Login to netlify
-drag and drop new folder into Deployment Zone
+Just pust `master` branch (to Github repo) and it will automatically published on Netlify
