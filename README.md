@@ -7,4 +7,4 @@ Live site is at https://niteco-bestpractice.netlify.app/
 
 # deploy
 
-Just pust `master` branch (to Github repo) and it will automatically published on Netlify
+Just push `master` branch (to Github repo) and it will automatically published on Netlify
